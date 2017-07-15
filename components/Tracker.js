@@ -14,8 +14,13 @@ export default class Tracker extends React.Component {
     }
 
     decrement() {
-        let newState = { value: this.state.value - 1 };
-        this.setState(newState);
+        if (this.state.value > 0) {
+            let newState = { value: this.state.value - 1 };
+            this.setState(newState);
+        }
+        else{
+            this.setState(this.state);
+        }
     }
 
 
