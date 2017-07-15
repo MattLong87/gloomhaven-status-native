@@ -22,9 +22,9 @@ export default class Tracker extends React.Component {
     render() {
         return (
             <View style={[trackerStyles.tracker, trackerStyles[this.props.type.toLowerCase()]]}>
-                <Arrow onPress={() => this.increment()} />
+                <Arrow onPress={() => this.increment()} direction="up" />
                 <Text style={trackerStyles.value}>{this.state.value}</Text>
-                <Arrow onPress={() => this.decrement()} />
+                <Arrow onPress={() => this.decrement()} direction="down" />
             </View>
         )
     }
@@ -50,6 +50,7 @@ const trackerStyles = StyleSheet.create({
     //styles for subcomponents
     value: {
         color: "#fff",
-        fontSize: 140
+        fontSize: 140,
+        marginVertical: 10
     }
 });
