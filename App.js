@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Dimensions } from 'react-native';
+import { StyleSheet, Text, View, Dimensions, Modal, TouchableHighlight } from 'react-native';
 import Tracker from './components/Tracker';
 
 export default class App extends React.Component {
@@ -7,7 +7,9 @@ export default class App extends React.Component {
     super(props);
     Dimensions.addEventListener("change", () => this.forceUpdate());
   }
-  
+
+  state = { modalVisible: false }
+
   render() {
     let flexDirection;
     let { height, width } = Dimensions.get('window');
@@ -20,9 +22,27 @@ export default class App extends React.Component {
     }
 
     return (
-      <View style={[styles.container, flexDirection]}>
-        <Tracker type="Health" />
-        <Tracker type="XP" />
+      <View style={{ flex: 1 }}>
+        <Modal
+          animationType={"slide"}
+          visible={this.state.modalVisible}
+          supportedOrientations={['portrait', 'portrait-upside-down', 'landscape', 'landscape-left', 'landscape-right']}
+        >
+          <Text>This is the modal</Text>
+        </Modal>
+        <View style={[styles.container, flexDirection]}>
+          <Tracker type="Health" />
+          <Tracker type="XP" />
+              <TouchableHighlight onPress={() => this.setState({ modalVisible: true })} 
+                style={
+                  {backgroundColor: "yellow",
+                  position: "absolute", 
+                  bottom: 10,
+                  right: 10
+                  }} >
+                  <View><Text>Info</Text></View>
+                </TouchableHighlight>
+        </View>
       </View>
     );
   }
