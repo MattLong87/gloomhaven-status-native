@@ -34,7 +34,12 @@ export default class Tracker extends React.Component {
                 this.props.type == "Summon" ? {flex: this.props.flex} : null
                 ]}>
                 <Arrow onPress={() => this.increment()} direction="up" orientation={this.props.orientation} />
-                <Text style={trackerStyles.value}>{this.state.value}</Text>
+                <Text style={[
+                    trackerStyles.value,
+                    this.state.value < 10 ? trackerStyles.extraMargin : null
+                ]}>
+                    {this.state.value}
+                </Text>
                 <Arrow onPress={() => this.decrement()} direction="down" orientation={this.props.orientation} />
             </Animated.View>
         )
@@ -75,5 +80,8 @@ const trackerStyles = StyleSheet.create({
         fontSize: 140,
         marginVertical: 10,
         marginHorizontal: 20
+    },
+    extraMargin: {
+        marginHorizontal: 37
     }
 });
