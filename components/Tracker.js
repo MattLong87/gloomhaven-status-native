@@ -58,10 +58,13 @@ const trackerStyles = StyleSheet.create({
 
     //styles for this.props.type
     health: {
-        backgroundColor: "#d42503"
+        backgroundColor: "#D91E18"
     },
     xp: {
-        backgroundColor: "#2e74de"
+        backgroundColor: "#4183D7"
+    },
+    summon: {
+        backgroundColor: "#4DAF7C"
     },
 
     //styles for subcomponents
