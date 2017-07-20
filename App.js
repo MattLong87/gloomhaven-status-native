@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Dimensions, Modal, TouchableHighlight } from 'react-native';
+import { StyleSheet, Text, View, Dimensions, TouchableHighlight } from 'react-native';
 import Tracker from './components/Tracker';
 
 export default class App extends React.Component {
@@ -8,7 +8,7 @@ export default class App extends React.Component {
     Dimensions.addEventListener("change", () => this.forceUpdate());
   }
 
-  state = { modalVisible: false }
+  state = { summonVisible: false }
 
   render() {
     let flexDirection;
@@ -21,26 +21,26 @@ export default class App extends React.Component {
       flexDirection = { flexDirection: "row" }
     }
 
+    let summonTracker = null;
+    if (this.state.summonVisible){
+      summonTracker = <Tracker type="Summon" />
+    }
+
     return (
       <View style={{ flex: 1 }}>
-        <Modal
-          animationType={"slide"}
-          visible={this.state.modalVisible}
-          supportedOrientations={['portrait', 'portrait-upside-down', 'landscape', 'landscape-left', 'landscape-right']}
-        >
-          <Text>This is the modal</Text>
-        </Modal>
+
         <View style={[styles.container, flexDirection]}>
+          {summonTracker}
           <Tracker type="Health" />
           <Tracker type="XP" />
-              <TouchableHighlight onPress={() => this.setState({ modalVisible: true })} 
+              <TouchableHighlight onPress={() => this.setState({ summonVisible: !this.state.summonVisible })} 
                 style={
                   {backgroundColor: "yellow",
                   position: "absolute", 
                   bottom: 10,
                   right: 10
                   }} >
-                  <View><Text>Info</Text></View>
+                  <View><Text>Toggle Summon</Text></View>
                 </TouchableHighlight>
         </View>
       </View>
