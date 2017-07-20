@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Dimensions, TouchableHighlight } from 'react-native';
+import { StyleSheet, Text, View, Dimensions, TouchableHighlight, Animated } from 'react-native';
 import Tracker from './components/Tracker';
 
 export default class App extends React.Component {
@@ -8,7 +8,39 @@ export default class App extends React.Component {
     Dimensions.addEventListener("change", () => this.forceUpdate());
   }
 
-  state = { summonVisible: false }
+  state = {
+    summonFlex: new Animated.Value(.0001),
+    summonVisible: false
+  }
+
+  toggleSummonTracker() {
+    if (!this.state.summonVisible) {
+      this.setState({
+        //summonFlex: 1,
+        summonVisible: !this.state.summonVisible
+      });
+      Animated.timing(
+        this.state.summonFlex,
+        {
+          toValue: 1,
+          duration: 300
+        }
+      ).start()
+    }
+    else {
+      this.setState({
+        //summonFlex: .0001,
+        summonVisible: !this.state.summonVisible
+      })
+      Animated.timing(
+        this.state.summonFlex,
+        {
+          toValue: .0001,
+          duration: 300
+        }
+      ).start()
+    }
+  }
 
   render() {
     let flexDirection;
@@ -24,26 +56,22 @@ export default class App extends React.Component {
       orientation = "landscape"
     }
 
-    let summonTracker = null;
-    if (this.state.summonVisible){
-      summonTracker = <Tracker type="Summon" orientation={orientation}/>
-    }
-
     return (
       <View style={{ flex: 1 }}>
         <View style={[styles.container, flexDirection]}>
-          {summonTracker}
-          <Tracker type="Health" orientation={orientation}/>
-          <Tracker type="XP" orientation={orientation}/>
-              <TouchableHighlight onPress={() => this.setState({ summonVisible: !this.state.summonVisible })} 
-                style={
-                  {backgroundColor: "yellow",
-                  position: "absolute", 
-                  bottom: 10,
-                  right: 10
-                  }} >
-                  <View><Text>Toggle Summon</Text></View>
-                </TouchableHighlight>
+          <Tracker type="Summon" orientation={orientation} flex={this.state.summonFlex} />
+          <Tracker type="Health" orientation={orientation} />
+          <Tracker type="XP" orientation={orientation} />
+          <TouchableHighlight onPress={() => this.toggleSummonTracker()}
+            style={
+              {
+                backgroundColor: "yellow",
+                position: "absolute",
+                bottom: 10,
+                right: 10
+              }} >
+            <View><Text>Toggle Summon</Text></View>
+          </TouchableHighlight>
         </View>
       </View>
     );
