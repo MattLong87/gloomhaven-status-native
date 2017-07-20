@@ -26,10 +26,14 @@ export default class Tracker extends React.Component {
 
     render() {
         return (
-            <View style={[trackerStyles.tracker, trackerStyles[this.props.type.toLowerCase()]]}>
-                <Arrow onPress={() => this.increment()} direction="up" />
+            <View style={[
+                trackerStyles.tracker, 
+                trackerStyles[this.props.type.toLowerCase()], 
+                this.props.orientation == "portrait" ? trackerStyles.horizontal : trackerStyles.vertical
+                ]}>
+                <Arrow onPress={() => this.increment()} direction="up" orientation={this.props.orientation} />
                 <Text style={trackerStyles.value}>{this.state.value}</Text>
-                <Arrow onPress={() => this.decrement()} direction="down" />
+                <Arrow onPress={() => this.decrement()} direction="down" orientation={this.props.orientation} />
             </View>
         )
     }
@@ -44,6 +48,14 @@ const trackerStyles = StyleSheet.create({
         alignItems: "center"
     },
 
+    horizontal: {
+        flexDirection: "row-reverse"
+    },
+
+    vertical: {
+        flexDirection: "column"
+    },
+
     //styles for this.props.type
     health: {
         backgroundColor: "#d42503"
@@ -56,6 +68,7 @@ const trackerStyles = StyleSheet.create({
     value: {
         color: "#fff",
         fontSize: 140,
-        marginVertical: 10
+        marginVertical: 10,
+        marginHorizontal: 20
     }
 });

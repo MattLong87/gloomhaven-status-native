@@ -13,26 +13,28 @@ export default class App extends React.Component {
   render() {
     let flexDirection;
     let { height, width } = Dimensions.get('window');
+    let orientation;
     if (height > width) {
       //portrait layout
       flexDirection = { flexDirection: "column" }
+      orientation = "portrait"
     }
     else {
       flexDirection = { flexDirection: "row" }
+      orientation = "landscape"
     }
 
     let summonTracker = null;
     if (this.state.summonVisible){
-      summonTracker = <Tracker type="Summon" />
+      summonTracker = <Tracker type="Summon" orientation={orientation}/>
     }
 
     return (
       <View style={{ flex: 1 }}>
-
         <View style={[styles.container, flexDirection]}>
           {summonTracker}
-          <Tracker type="Health" />
-          <Tracker type="XP" />
+          <Tracker type="Health" orientation={orientation}/>
+          <Tracker type="XP" orientation={orientation}/>
               <TouchableHighlight onPress={() => this.setState({ summonVisible: !this.state.summonVisible })} 
                 style={
                   {backgroundColor: "yellow",
