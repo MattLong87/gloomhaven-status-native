@@ -56,6 +56,14 @@ export default class App extends React.Component {
       orientation = "landscape"
     }
 
+    let summonToggleButtonText;
+    if (this.state.summonVisible) {
+      summonToggleButtonText = "-";
+    }
+    else {
+      summonToggleButtonText = "+";
+    }
+
     return (
       <View style={{ flex: 1 }}>
         <View style={[styles.container, flexDirection]}>
@@ -65,12 +73,24 @@ export default class App extends React.Component {
           <TouchableHighlight onPress={() => this.toggleSummonTracker()}
             style={
               {
-                backgroundColor: "yellow",
+                borderColor: "white",
+                borderWidth: 2,
+                borderRadius: 5,
+                height: 35,
+                width: 35,
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
                 position: "absolute",
                 bottom: 10,
                 right: 10
               }} >
-            <View><Text>Toggle Summon</Text></View>
+              <Text style={{
+                fontSize: 24,
+                color: "white"
+              }}>
+                {summonToggleButtonText}
+              </Text>
           </TouchableHighlight>
         </View>
       </View>
