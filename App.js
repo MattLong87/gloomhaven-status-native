@@ -56,21 +56,13 @@ export default class App extends React.Component {
       orientation = "landscape"
     }
 
-    let summonToggleButtonText;
-    if (this.state.summonVisible) {
-      summonToggleButtonText = "-";
-    }
-    else {
-      summonToggleButtonText = "+";
-    }
-
     return (
       <View style={{ flex: 1 }}>
         <View style={[styles.container, flexDirection]}>
           <Tracker type="Summon" orientation={orientation} flex={this.state.summonFlex} />
           <Tracker type="Health" orientation={orientation} />
           <Tracker type="XP" orientation={orientation} />
-          <TouchableHighlight onPress={() => this.toggleSummonTracker()}
+          <TouchableHighlight onPress={() => this.toggleSummonTracker()} underlayColor="#ccc"
             style={
               {
                 borderColor: "white",
@@ -89,7 +81,7 @@ export default class App extends React.Component {
                 fontSize: 24,
                 color: "white"
               }}>
-                {summonToggleButtonText}
+                {this.state.summonVisible ? "-" : "+"}
               </Text>
           </TouchableHighlight>
         </View>
