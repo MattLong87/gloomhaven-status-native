@@ -4,7 +4,10 @@ import { StyleSheet, View, Image, TouchableWithoutFeedback } from 'react-native'
 export default class Arrow extends React.Component {
     render() {
         return (
-            <TouchableWithoutFeedback onPress={this.props.onPress} hitSlop={{left: 150, right: 150, top: 50, bottom: 50}}>
+            <TouchableWithoutFeedback 
+                onPress={this.props.onPress} 
+                hitSlop={{left: 150, right: 150, top: 50, bottom: 50}}
+            >
                 <View>
                     <Image source={require('../img/arrow.png')} style={[
                         arrowStyles.arrow, 
